@@ -7,7 +7,7 @@ namespace RepositoryPattern.Repositories
 {
     public class ProjectRepository : Repository<Project>, IProjectRepository
     {
-        protected ProjectRepository(PlaygroundContext dbContext) : base(dbContext)
+        public ProjectRepository(PlaygroundContext dbContext) : base(dbContext)
         {
             
         }

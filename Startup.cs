@@ -9,6 +9,7 @@ using RepositoryPattern.Database;
 using RepositoryPattern.Repositories;
 using RepositoryPattern.Repositories.Abstracts;
 using RepositoryPattern.Repositories.Interfaces;
+using RepositoryPattern.UnitOfWork.Interfaces;
 
 namespace RepositoryPattern
 {
@@ -31,14 +32,19 @@ namespace RepositoryPattern
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "RepositoryPattern", Version = "v1"});
             });
 
+            //Database Contexts.
             services.AddDbContext<PlaygroundContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("PlaygroundConnection"),
                     b => b.MigrationsAssembly(typeof(PlaygroundContext).Assembly.FullName)));
             
+            //Repositories.
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IDeveloperRepository, DeveloperRepository>();
             services.AddTransient<IProjectRepository, ProjectRepository>();
+            
+            //Unit of Work.
+            services.AddTransient<IUnitOfWork, UnitOfWork.UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
