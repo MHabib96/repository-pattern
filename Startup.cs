@@ -6,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RepositoryPattern.Database;
+using RepositoryPattern.Repositories;
+using RepositoryPattern.Repositories.Abstracts;
+using RepositoryPattern.Repositories.Interfaces;
 
 namespace RepositoryPattern
 {
@@ -32,6 +35,10 @@ namespace RepositoryPattern
                 options.UseSqlServer(
                     Configuration.GetConnectionString("PlaygroundConnection"),
                     b => b.MigrationsAssembly(typeof(PlaygroundContext).Assembly.FullName)));
+            
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IDeveloperRepository, DeveloperRepository>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
