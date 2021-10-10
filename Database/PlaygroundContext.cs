@@ -3,9 +3,9 @@ using RepositoryPattern.Models;
 
 namespace RepositoryPattern.Database
 {
-    public class AppContext : DbContext
+    public class PlaygroundContext : DbContext
     {
-        public AppContext(DbContextOptions<AppContext> options) : base(options)
+        public PlaygroundContext(DbContextOptions<PlaygroundContext> options) : base(options)
         {
             
         }
